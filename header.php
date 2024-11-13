@@ -18,8 +18,8 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <form method="POST" action="">
-                            <button class="btn btn-link nav-link text-white" name="logout" type="submit">Logout</button>
+                        <form method="POST" action="http://localhost/crud-mvc/logout.php">
+                            <input type="submit" class="btn btn-link nav-link text-white" name="logout" value="Logout">
                         </form>
                     </li>
                 </ul>

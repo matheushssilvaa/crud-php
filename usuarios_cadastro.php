@@ -13,6 +13,15 @@ $userToEdit = null;
 if (isset($_GET['edit'])) {
     $userToEdit = getUser($_GET['edit']);
 }
+
+session_start();
+
+// Verifica se o usuário está registrado na sessão (logado)
+if (!isset($_SESSION['email'])) {
+    header("Location: index.php");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +43,7 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body>
-    <div class="content" style="margin: 20px;">
+    <div class="container" style="margin-top: 30px;">
         <h2>Cadastro de Usuários</h2>
         <form method="POST" action="" class="form-row">
 
