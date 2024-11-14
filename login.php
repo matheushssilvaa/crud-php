@@ -6,10 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    if($email || $password) {
-        echo "Digite um email e senha";
-    }
-
     // Prepara e executa a consulta na tabela de usuários
     $stmt = $conn->prepare("SELECT nome FROM usuarios WHERE email = ? AND senha = ?");
     $stmt->bind_param("ss", $email, $senha);

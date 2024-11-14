@@ -1,14 +1,15 @@
 <?php include 'principal_controller.php'; ?>
 <?php include 'header.php'; ?>
 
-<div class="flex-grow-1">
+<div class="container">
+    <div class="flex-grow-1">
         <!-- Conteúdo da página vai aqui -->
-       <h2>Olá, <?php echo htmlspecialchars($nome); ?>!</h2>
+        <h2>Olá, <?php echo htmlspecialchars($nome); ?>!</h2>
 
-       <form method="POST" action="">
+        <form method="POST" action="">
             <input type="submit" name="logout" value="Logout">
-       </form>
+        </form>
+    </div>
 </div>
-
 
 <?php include 'footer.php'; ?>

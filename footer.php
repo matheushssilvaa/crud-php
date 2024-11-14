@@ -1,6 +1,8 @@
 <footer class="bg-dark text-white d-flex align-items-center" style="height: 1cm;">
         <div class="container text-center">
-            <p class="mb-0">&copy; <?php echo date("d/m/Y"); ?> Seu Nome ou Empresa. Todos os direitos reservados.</p>
+            <?php if(isset($_SESSION['nome'])): ?>
+            <p class="mb-0">&copy; <?php echo date("Y"); ?> Seu Nome ou Empresa. Todos os direitos reservados. Usuário logado: <b><?php echo htmlspecialchars($_SESSION['nome']); ?></b></p>
+            <?php endif;?>
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

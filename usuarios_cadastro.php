@@ -45,7 +45,7 @@ if (!isset($_SESSION['email'])) {
 <body>
     <div class="container" style="margin-top: 30px;">
         <h2>Cadastro de Usuários</h2>
-        <form method="POST" action="" class="form-row">
+        <form method="POST" action="" class="form-row" style="justify-content: center;">
 
             <input type="hidden" id="id" name="id" value="<?php echo $userToEdit['id'] ?? ''; ?>">
 
@@ -75,7 +75,7 @@ if (!isset($_SESSION['email'])) {
             <div class="col-3">
             <button type="submit" name="save" class="btn btn-primary my-2">Salvar</button>
             <button type="submit" name="update" class="btn btn-secondary my-2 ml-2">Atualizar</button>
-            <button type="button" onclick="clearForm()" class="btn btn-secondary my-2 ml-2">Novo</button>
+            <button type="button" onclick="clearForm()" class="btn btn-success my-2 ml-2">Novo</button>
             </div>
         </form>
 
