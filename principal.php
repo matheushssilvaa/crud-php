@@ -2,7 +2,7 @@
 <?php include 'header.php'; ?>
 
 <div class="container">
-    <div class="flex-grow-1">
+    <div class="flex-grow-1"> 
         <!-- Conteúdo da página vai aqui -->
         <h2>Olá, <?php echo htmlspecialchars($nome); ?>!</h2>
 
