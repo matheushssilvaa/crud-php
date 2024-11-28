@@ -6,7 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Armazena informações de usuário
+// Armazena informações do usuário
 $nome = $_SESSION['nome'];
 $email = $_SESSION['email'];
 
@@ -17,7 +17,7 @@ function getProdutos() {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Verifica se o usuário esta logado
+// Verifica se o usuário está logado
 if (!isset($_SESSION['email'])) {
     header("Location: index.php");
     exit();
@@ -46,7 +46,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'alterar' && isset($_POST['id
     exit();
 }
 
-// função para obter um produto por ID
+// Função para obter um produto por ID
 function getProdutoPorId($id_produto) {
     global $conn;
     $result = $conn->query("SELECT * FROM produtos WHERE id = $id_produto");

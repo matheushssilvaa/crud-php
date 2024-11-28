@@ -1,13 +1,12 @@
 <?php
 session_start();
 
-// Verifica se o usuário esta logado
+// Verifica se o usuário está logado
 if (!isset($_SESSION['email'])) {
     header("Location: index.php");
     exit();
 }
 
-// Incluir funções de gerenciamento do carrinho
 include 'shopcart_controller.php';
 
 ?>
@@ -47,7 +46,7 @@ include 'shopcart_controller.php';
         </form>
 
     <?php else: ?>
-        <p>Seu carrinho esta vazio!</p>
+        <p>Seu carrinho está vazio.</p>
         <a href="principal.php" class="btn btn-primary">Voltar para os Produtos</a>
     <?php endif; ?>
 </div>

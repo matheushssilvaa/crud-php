@@ -1,78 +1,62 @@
 <?php
-include 'db.php';
+session_start();
+include 'db.php';  // Conexão com o banco de dados
 include 'shopcart_controller.php';
-//session_start();
 
-// Armazena informações do usuario
-$nome = $_SESSION['nome'];
-$email = $_SESSION['email'];
 
-// Verifica se o usuário esta logado
+// Verifica se o usuário está logado
 if (!isset($_SESSION['email'])) {
     header("Location: index.php");
     exit();
 }
 
-// Função para salvar o pedido no banco de dados (exemplo simples)
-function salvarPedido($carrinho, $total) {
-    global $conn;
-    
-    // Pega o ID do usuario que esta na sessão
-    $id_usuario = null;  // Pegando o ID do usuario que esta na sessÃ£o
-    $data_pedido = date('Y-m-d H:i:s');
+// Obtém o id_usuario a partir do email do usuário logado
+$email_usuario = $_SESSION['email'];
+$sql_usuario = "SELECT id FROM usuarios WHERE email = '$email_usuario' LIMIT 1";
+$result_usuario = $conn->query($sql_usuario);
 
-    // Tenta inserir o pedido no banco
-    try {
-        $sql = "INSERT INTO pedidos (id_usuario, total, data_pedido) VALUES ('$id_usuario', '$total', '$data_pedido')";
-        
-        if ($conn->query($sql) === TRUE) {
-            $pedido_id = $conn->insert_id;  // obtem o ID do botão 
-            
-            // Inserir itens do pedido no banco
-            foreach ($carrinho as $id_produto => $item) {
-                $produto_id = $item['id_produto'];
-                $quantidade = $item['quantidade'];
-                $subtotal = $item['subtotal'];
-
-                $sql_item = "INSERT INTO itens_pedido (pedido_id, produto_id, quantidade, subtotal) 
-                             VALUES ('$pedido_id', '$produto_id', '$quantidade', '$subtotal')";
-                if ($conn->query($sql_item) === FALSE) {
-                    throw new Exception("Erro ao inserir item do pedido: " . $conn->error);
-                }
-            }
-
-            return true;  // Pedido e itens foram inseridos com sucesso
-        } else {
-            throw new Exception("Erro ao inserir pedido: " . $conn->error);
-        }
-    } catch (Exception $e) {
-        return $e->getMessage();
-    }
+// Verifica se o usuário existe no banco de dados
+if ($result_usuario->num_rows > 0) {
+    $usuario = $result_usuario->fetch_assoc();
+    $id_usuario = $usuario['id'];  // O id do usuário logado
+} else {
+    // Se não encontrar o usuário, redireciona ou exibe erro
+    echo "Usuário não encontrado.";
+    exit();
 }
 
-// Verifica se o botão de finalizar compra foi acionado
-if (isset($_POST['acao']) && $_POST['acao'] == 'finalizar') {
-    $total = calcularTotalCarrinho();  // Calcula o total da compra
-
-    // Salva o pedido no banco de dados
-    $erro = salvarPedido($_SESSION['carrinho'], $total);
-
-    if ($erro === true) {
-        // Limpa o carrinho da sessão
+// Verifica se o carrinho não está vazio
+if (isset($_SESSION['carrinho']) && count($_SESSION['carrinho']) > 0) {
+    // Insere o pedido na tabela pedidos
+    $total_pedido = calcularTotalCarrinho();  // Calcula o total do pedido
+    $sql_pedido = "INSERT INTO pedidos (id_usuario, total) VALUES ($id_usuario, $total_pedido)";
+    
+    if ($conn->query($sql_pedido) === TRUE) {
+        $id_pedido = $conn->insert_id;  // Obtém o ID do pedido inserido
+        
+        // Insere os itens do carrinho na tabela itens_pedido
+        foreach ($_SESSION['carrinho'] as $id_produto => $item) {
+            $quantidade = $item['quantidade'];
+            $subtotal = $item['subtotal'];
+            
+            $sql_item = "INSERT INTO itens_pedido (pedido_id, produto_id, quantidade, subtotal) 
+                         VALUES ($id_pedido, $id_produto, $quantidade, $subtotal)";
+            $conn->query($sql_item);
+        }
+        
+        // Limpa o carrinho após a compra
         unset($_SESSION['carrinho']);
-
-        // Redireciona para a página de confirmação de compra ou pagamento
+        
+        // Redireciona para uma página de sucesso ou confirmação
         header("Location: shopcart_sucesso_compra.php");
         exit();
     } else {
-        // Se algo falhou ao salvar o pedido, redireciona para a página de erro com a mensagem de erro
-        $_SESSION['erro_compra'] = $erro;  // Armazena o erro na sessão
-        header("Location: shopcart_erro_compra.php");
-        exit();
+        // Caso falhe a inserção do pedido
+        echo "Erro ao processar pedido: " . $conn->error;
     }
 } else {
-    // Se a sessão não for válida, redireciona para a página inicial ou carrinho
-    header("Location: index.php");
+    // Caso o carrinho esteja vazio
+    echo "Carrinho vazio!";
     exit();
 }
 ?>

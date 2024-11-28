@@ -51,7 +51,7 @@ if (isset($_SESSION['erro_compra'])) {
         <h1>Erro ao Processar a Compra</h1>
         <p>Ocorreu um erro ao tentar finalizar seu pedido. Detalhes do erro:</p>
         <p><strong><?php echo $erro; ?></strong></p>
-        <p><a href="index.php">Clique aqui para voltar Ã  pÃ¡gina inicial.</a></p>
+        <p><a href="index.php">Clique aqui para voltar para a página principal.</a></p>
     </div>
 </body>
 </html>

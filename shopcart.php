@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-// Verifica se o usuário esta logado
+// Verifica se o usuário está logado
 if (!isset($_SESSION['email'])) {
     header("Location: index.php");
     exit();
 }
 
 include 'shopcart_controller.php';
-
 ?>
 
 <?php include 'header.php'; ?>
@@ -51,7 +50,7 @@ include 'shopcart_controller.php';
         <a href="shopcart_finalizar_compra.php" class="btn btn-success">Confirmar Compra</a>
         <a href="principal.php" class="btn btn-primary">Continuar Compra</a>
     <?php else: ?>
-        <p>Seu carrinho esta vazio.</p>
+        <p>Seu carrinho está vazio.</p>
         <a href="principal.php" class="btn btn-primary">Voltar</a>
     <?php endif; ?>
 </div>
