@@ -1,13 +1,21 @@
 <?php
+<<<<<<< HEAD
 include 'db.php';
 session_start();
 
 // Verifica se o usuÃ¡rio estÃ¡ registrado na sessÃ£o (logado)
+=======
+//Prepara pa gerenciar a sessão
+session_start();
+
+// Verifica se o usuário está registrado na sessão (logado)
+>>>>>>> d9c75e20ec3733ca700387865f9c35ebf3182577
 if (!isset($_SESSION['email'])) {
     header("Location: index.php");
     exit();
 }
 
+<<<<<<< HEAD
 // Armazena informaÃ§Ãµes do usuÃ¡rio
 $nome = $_SESSION['nome'];
 $email = $_SESSION['email'];
@@ -51,12 +59,20 @@ function getProdutoPorId($id_produto) {
 }
 
 // FunÃ§Ã£o para lidar com o logout
+=======
+// Armazena informações do usuário
+$nome = $_SESSION['nome'];
+$email = $_SESSION['email'];
+
+// Função para lidar com o logout
+>>>>>>> d9c75e20ec3733ca700387865f9c35ebf3182577
 if (isset($_POST['logout'])) {
     session_unset();
     session_destroy();
     header("Location: index.php");
     exit();
 }
+<<<<<<< HEAD
 
 // Adicionar produto ao carrinho via POST
 if (isset($_POST['adicionar_produto'])) {
@@ -65,4 +81,6 @@ if (isset($_POST['adicionar_produto'])) {
     header("Location: principal.php");
     exit();
 }
+=======
+>>>>>>> d9c75e20ec3733ca700387865f9c35ebf3182577
 ?>

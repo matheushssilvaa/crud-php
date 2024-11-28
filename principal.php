@@ -22,6 +22,7 @@ $products = getProducts();
                         <h5 class="card-title" style="font-weight: bold;"><?php echo $product['nome']; ?></h5>
                         <p class="card-text"><?php echo $product['descricao']; ?></p>
                         <p class="card-text" style="font-weight: bold;">Preço:
+<<<<<<< HEAD
                             <?php echo $product['valorUnitario']; ?>
                         </p>
                         <p class="card-text" style="font-weight: bold;">Categoria: <small
@@ -31,6 +32,13 @@ $products = getProducts();
                             <button type="submit" name="adicionar_produto"
                                 class="btn btn-primary btn-block">Comprar</button>
                         </form>
+=======
+                            <?php echo $product['valorUnitario'];?></p>
+                        <p class="card-text" style="font-weight: bold;">Categoria: <small
+                                class="text-body-secondary"><?php echo $product['categoria']; ?></small></p>
+                        <a href="#" class="btn btn-success" style="font-size: 20px;"><i class="bi bi-cart-plus-fill"
+                                style="font-size: 25px;"></i>Comprar</a>
+>>>>>>> d9c75e20ec3733ca700387865f9c35ebf3182577
                     </div>
                 </div>
             </div>
